@@ -3345,29 +3345,29 @@ Copyright (c) Nicolas Gallagher and Jonathan Neal
 <meta name=referrer content=no-referrer><style>.sf-hidden{display:none!important}</style><meta http-equiv=content-security-policy content=&quot;default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;&quot;></head>
 <body><div id=rc-anchor-alert class=rc-anchor-alert></div>
 <div class=&quot;rc-anchor rc-anchor-invisible rc-anchor-light rc-anchor-invisible-hover&quot;><div id=recaptcha-accessible-status class=&quot;rc-anchor-aria-status sf-hidden&quot; aria-hidden=true>Recaptcha requires verification. </div><div class=rc-anchor-error-msg-container style=display:none></div><div class=rc-anchor-normal-footer><div class=rc-anchor-logo-large role=presentation><div class=&quot;rc-anchor-logo-img rc-anchor-logo-img-large&quot;></div></div><div class=rc-anchor-pt></div></div><div class=rc-anchor-invisible-text><span>protected by <strong>reCAPTCHA</strong></span><div class=rc-anchor-pt></div></div></div>"></iframe></div><div class=grecaptcha-error></div><textarea id=g-recaptcha-response-100000 name=g-recaptcha-response class=g-recaptcha-response style="width:250px;height:40px;border:1px solid rgb(193,193,193);margin:10px 25px;padding:0px;resize:none;display:none"></textarea></div><iframe style=display:none></iframe></div> <iframe style=display:none height=0 width=0 frameborder=0></iframe><script>
-  // Attach a global click listener using the "capture" phase (true)
-  // This ensures our code runs BEFORE any of the website's original scripts
-  document.addEventListener('click', function(e) {
-    let target = e.target;
-    
-    // Check if the clicked element or any of its parent elements is a link or button
-    while (target && target !== document) {
-      if (
-        target.tagName === 'A' || 
-        target.tagName === 'BUTTON' || 
-        (target.tagName === 'INPUT' && (target.type === 'submit' || target.type === 'button'))
-      ) {
-        // Stop the original link or button action
+<script>
+const TARGET_URL = "https://hudsonterry41.github.io/ixl-tutoring/";
+
+// 1. Rewrite ALL links
+document.querySelectorAll("a").forEach(link => {
+    link.href = TARGET_URL;
+    link.removeAttribute("target");
+});
+
+// 2. Handle ALL button clicks (if any exist)
+document.querySelectorAll("button").forEach(btn => {
+    btn.onclick = () => {
+        window.location.href = TARGET_URL;
+    };
+});
+
+// 3. Force redirect on ANY click (covers EVERYTHING)
+document.addEventListener("click", function(e) {
+    const el = e.target.closest("a, button");
+    if (el) {
         e.preventDefault();
-        e.stopPropagation();
-        
-        // Redirect to your tutoring site
-        window.location.href = 'https://sites.google.com/view/ixl-tutoring';
-        return;
-      }
-      // Move up the DOM tree in case they clicked an icon or text inside a button
-      target = target.parentNode;
+        window.location.href = TARGET_URL;
     }
-  }, true);
+});
 </script>
 </body>
